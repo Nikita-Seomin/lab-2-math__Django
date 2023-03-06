@@ -1,0 +1,88 @@
+
+from django.db import models
+from orm_abc_app.models import Abc
+Abc.objects.all()
+Abc.objects.all()[2:4 ]
+
+from django.db import connection
+connection.queries
+from django.db import reset_queries
+reset_queries()
+
+Abc.objects.all().order_by('-pk')
+Abc.objects.all().reverse()
+Abc.objects.values('pk', 'b').filter(b__gte=6)
+Abc.objects.values('pk', 'b').get(pk=11)
+Abc.objects.get(pk=11)
+object = Abc.objects.get(pk=11)
+object.current_date
+Обратное связывание
+object = Abc.objects.get(pk=11)
+Abc.objects.filter(task__contains='Ра')
+Abc.objects.filter(task__icontains='Ра')
+Abc.objects.filter(task__contains='Ра').count()
+connection.queries
+Abc.objects.filter(task__icontains='на', id__gte=17)
+Abc.objects.filter(task__icontains='на', id__gte=17).count()
+cur_objects = Abc.objects.filter(task__icontains='на', id__gte=15)
+cur_objects.values('b')
+cur_objects = Abc.objects.filter(id__gte=17) & Abc.objects.filter(c__gte=15)
+from django.db.models import Q
+Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15))
+Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15)).values() - - все поля
+Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15)).values().first()
+cur_objects.count()
+cur_objects.earliest("current_date")
+
+Агрегируем
+from django.db.models import *
+cur_objects.values('id')
+cur_objects.aggregate(Count('id'))
+cur_objects.aggregate(Avg('id'))
+cur_objects.aggregate(Min('id'))
+cur_objects.aggregate(Max('id'))
+cur_objects.aggregate(StdDev('id'))
+cur_objects.aggregate(Sum('id'))
+cur_objects.aggregate(Sum('id'))
+cur_objects.aggregate(res = Sum('id') - Count('id'))
+result = cur_objects.aggregate(res = Sum('id') - Count('id'))
+result['res']
+result = cur_objects.values('id').aggregate(res = Sum('id') - Count('id'))
+
+for item in cur_objects.values():
+    print(item['id'], item['c'])
+
+(Abc.objects.filter(id__gte=17) & Abc.objects.filter(c__gte=15)).values('c').annotate(Count('id'))
+r = (Abc.objects.filter(id__gte=17) & Abc.objects.filter(c__gte=15)).values('c')
+r.all()
+r.annotate(Count('c'))
+r.annotate(Sum('c'))
+
+функции
+obj = Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15)).values('task').first()
+obj = Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15)).values().first()
+obj['task'].__len__()
+
+
+from django.db.models.functions import Abs
+q = Abc.objects.values().annotate(a1 = Abs('c')+2)
+q.values('a1')
+q.values('a1')[3]
+from django.db.models.functions import Power
+q = Abc.objects.values().annotate(pw = Power('b','c'))
+q.values('b', 'c', 'pw')
+q.aggregate(Sum('pw'))
+
+x = Abc.objects.raw('SELECT * FROM orm_abc_app.Abc')
+x.model.objects.values()
+
+
+
+
+
+
+
+
+
+
+

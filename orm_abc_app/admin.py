@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import  Abc
+from .models import Abc
 
 # Register your models here.
+
 @admin.register(Abc)
 class AbcAdmin(admin.ModelAdmin):
     pass

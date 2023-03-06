@@ -23,7 +23,7 @@ class Abc(models.Model):
     class Meta:
         verbose_name = "A_B_C"
         verbose_name_plural = "A_B_C_S"
-        # ordering = ("-c", "b")
+        ordering = ("a", "-b")
 
 
 
