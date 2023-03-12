@@ -1,8 +1,28 @@
 
 from django.db import models
 from orm_abc_app.models import Abc
+t = A
+
 Abc.objects.all()
-Abc.objects.all()[2:4 ]
+Abc.objects.all()[2:4]
+Abc.objects.values()
+Abc.objects.values_list()
+Abc.objects.values_list('task')[2:4]
+Abc.objects.values_list()[2:4][1][1]
+Abc.objects.values('id')[2:3]
+Abc.objects.values()[2:4][0]['id']
+
+new_obj = Abc(task='t01')
+new_obj.save()
+Abc.objects.values_list('id','task').order_by('id').reverse()[:3]
+
+del_obj = Abc.objects.filter(id__gte=27)
+del_obj.delete()
+Abc.objects.values_list('id','task').order_by('id').reverse()[:3]
+
+Abc.objects.filter(id__gte=22).update(task = "update_01")
+Abc.objects.values_list('id','task').order_by('id').reverse()[:3]
+
 
 from django.db import connection
 connection.queries
@@ -16,7 +36,8 @@ Abc.objects.values('pk', 'b').get(pk=11)
 Abc.objects.get(pk=11)
 object = Abc.objects.get(pk=11)
 object.current_date
-Обратное связывание
+
+
 object = Abc.objects.get(pk=11)
 Abc.objects.filter(task__contains='Ра')
 Abc.objects.filter(task__icontains='Ра')
@@ -33,6 +54,7 @@ Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15)).values() - - все поля
 Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15)).values().first()
 cur_objects.count()
 cur_objects.earliest("current_date")
+cur_objects.values().earliest("current_date")
 
 Агрегируем
 from django.db.models import *
@@ -65,6 +87,8 @@ obj['task'].__len__()
 
 
 from django.db.models.functions import Abs
+from django.db.models.functions import *
+
 q = Abc.objects.values().annotate(a1 = Abs('c')+2)
 q.values('a1')
 q.values('a1')[3]
@@ -72,6 +96,13 @@ from django.db.models.functions import Power
 q = Abc.objects.values().annotate(pw = Power('b','c'))
 q.values('b', 'c', 'pw')
 q.aggregate(Sum('pw'))
+
+res = obj.values().annotate(r = Random())
+res.values_list('r')
+
+res = obj.values().annotate(r = 'a'*'b')
+res.values_list('r')
+
 
 x = Abc.objects.raw('SELECT * FROM orm_abc_app.Abc')
 x.model.objects.values()
