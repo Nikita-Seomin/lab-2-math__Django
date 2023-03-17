@@ -1,14 +1,43 @@
-from django.shortcuts import render, redirect
-from . forms import CreateAbcForm
-from . models import Abc
-
 import datetime
-from django.db.models.fields import (
-    DateField, DateTimeField, DurationField, Field, IntegerField, TimeField,
-)
+
+from django import forms
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+
+from .forms import CreateAbcForm
+from .models import Abc
+
 
 def index(request):
     return render(request, 'index.html')
+
+
+class AbcFormCreate(forms.Form):
+    a = forms.IntegerField(initial=1, min_value=2)
+    b = forms.IntegerField(required=False)
+    c = forms.IntegerField(label='c_lable' )
+
+def abc_form(request):
+    abc_form = AbcFormCreate()
+    print(abc_form)
+    return render(request, 'abc_form.html', {"abc_form": abc_form})
+
+
+def abc_get(request):
+    print(request.GET)
+    print(request.GET.get("a"))
+    print(request.GET.get("b"))
+    print(request.GET.get("c"))
+    A = request.GET.get("a")
+    B = request.GET.get("b")
+    C = request.GET.get("c")
+    return HttpResponse(f"""
+    <pre>
+    A = {A}
+    B = {B}
+    C = {C}
+    </pre>
+    """)
 
 
 # def index(request):
