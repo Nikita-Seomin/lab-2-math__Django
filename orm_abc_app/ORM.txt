@@ -7,7 +7,7 @@ Abc.objects.all()
 Abc.objects.all()[2:4]
 Abc.objects.values()
 Abc.objects.values_list()
-Abc.objects.values_list('task')[2:4]
+Abc.objects.values_list('task')[:1]
 Abc.objects.values_list()[2:4][1][1]
 Abc.objects.values('id')[2:3]
 Abc.objects.values()[2:4][0]['id']

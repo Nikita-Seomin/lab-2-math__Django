@@ -5,7 +5,7 @@
 {% block content %}
     <h5>orm_abc_app:form_create</h5>
     {% load widget_tweaks %}
-    <form method="POST">
+    <form {% url 'orm_abc_app:form_create' %} method="POST">
         {% csrf_token %}
         <div class="form-group mb-1">
             <div class="mb-1 row">

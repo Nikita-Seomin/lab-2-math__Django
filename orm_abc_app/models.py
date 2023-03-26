@@ -18,12 +18,14 @@ class Abc(models.Model):
 
     def __str__(self):
         # return self.task
-        return '%s %s' % (self.task, self.current_date)
+        # return '%s %s' % (self.task, self.current_date)
+        return f"{self.id}&{self.task}"
+
 
     class Meta:
         verbose_name = "A_B_C"
         verbose_name_plural = "A_B_C_S"
-        ordering = ("a", "-b")
+        ordering = ('-id','-a')
 
 
 
