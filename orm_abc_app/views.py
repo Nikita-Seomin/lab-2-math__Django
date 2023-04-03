@@ -3,6 +3,8 @@ import datetime
 from django import forms
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+# from django.db.models import *
+from django.db.models import Count, Avg, Min, Max, StdDev, Sum
 
 from .forms import CreateAbcForm
 from .models import Abc
@@ -123,8 +125,29 @@ def form_result(request):
 
 
 def table(request):
-    # print ((Abc.))
+    row = Abc.objects.values()
+    print('row:', row)
     row_lists = Abc.objects.values_list()
     print('row_lists:', row_lists)
-    context = {'row_lists': row_lists}
+    cur_objects = Abc.objects.all()
+    statics_val = []
+    statics_val.append(cur_objects.aggregate(Count('b')))
+    statics_val.append(cur_objects.aggregate(Avg('b')))
+    statics_val.append(cur_objects.aggregate(Min('b')))
+    statics_val.append(cur_objects.aggregate(Max('b')))
+    statics_val.append(cur_objects.aggregate(StdDev('b')))
+    statics_val.append(cur_objects.aggregate(Sum('b')))
+    print(statics_val)
+    statics = {'statics_val': statics_val}
+
+    fields_list = list(Abc._meta.get_fields())
+    verbose_name_list = []
+    name_list = []
+    for e in fields_list:
+        verbose_name_list.append(e.verbose_name)
+        name_list.append(e.name)
+    print(verbose_name_list)
+    print(name_list)
+
+    context = {'row': row, 'row_lists': row_lists, 'statics': statics}
     return render(request, 'table.html', context)

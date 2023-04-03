@@ -64,16 +64,19 @@ Abc.objects.filter(task__icontains='на', id__gte=17).count()
 cur_objects = Abc.objects.filter(task__icontains='на', id__gte=15)
 cur_objects.values('b')
 cur_objects = Abc.objects.filter(id__gte=17) & Abc.objects.filter(c__gte=15)
+
 from django.db.models import Q
 Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15))
 Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15)).values() - - все поля
 Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15)).values().first()
+
 cur_objects.count()
 cur_objects.earliest("current_date")
 cur_objects.values().earliest("current_date")
 
 Агрегируем
 from django.db.models import *
+cur_objects = Abc.objects.all()
 cur_objects.values('id')
 cur_objects.aggregate(Count('id'))
 cur_objects.aggregate(Avg('id'))
@@ -81,7 +84,8 @@ cur_objects.aggregate(Min('id'))
 cur_objects.aggregate(Max('id'))
 cur_objects.aggregate(StdDev('id'))
 cur_objects.aggregate(Sum('id'))
-cur_objects.aggregate(Sum('id'))
+
+
 cur_objects.aggregate(res = Sum('id') - Count('id'))
 result = cur_objects.aggregate(res = Sum('id') - Count('id'))
 result['res']
