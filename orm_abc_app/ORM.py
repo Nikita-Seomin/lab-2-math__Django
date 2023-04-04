@@ -126,14 +126,3 @@ res.values_list('r')
 
 x = Abc.objects.raw('SELECT * FROM orm_abc_app.Abc')
 x.model.objects.values()
-
-
-
-
-
-
-
-
-
-
-

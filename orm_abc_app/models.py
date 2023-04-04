@@ -14,7 +14,7 @@ class Abc(models.Model):
     a = models.IntegerField("Значение А", default=0, )
     b = models.IntegerField("Значение B", default=0, help_text="Подсказка для поля")
     c = models.IntegerField("Значение С", choices=c_choices, default=0, )
-    current_date = models.DateTimeField("Дата Записи", auto_now=True)
+    current_date = models.DateTimeField("Дата записи", auto_now=True)
 
     def __str__(self):
         # return self.task

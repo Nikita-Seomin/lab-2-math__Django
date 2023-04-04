@@ -130,24 +130,20 @@ def table(request):
     row_lists = Abc.objects.values_list()
     print('row_lists:', row_lists)
     cur_objects = Abc.objects.all()
-    statics_val = []
-    statics_val.append(cur_objects.aggregate(Count('b')))
-    statics_val.append(cur_objects.aggregate(Avg('b')))
-    statics_val.append(cur_objects.aggregate(Min('b')))
-    statics_val.append(cur_objects.aggregate(Max('b')))
-    statics_val.append(cur_objects.aggregate(StdDev('b')))
-    statics_val.append(cur_objects.aggregate(Sum('b')))
+    statics_val = [cur_objects.aggregate(Count('b')), cur_objects.aggregate(Avg('b')), cur_objects.aggregate(Min('b')),
+                   cur_objects.aggregate(Max('b')), cur_objects.aggregate(StdDev('b')), cur_objects.aggregate(Sum('b'))]
     print(statics_val)
     statics = {'statics_val': statics_val}
 
-    fields_list = list(Abc._meta.get_fields())
+    fields = Abc._meta.get_fields()
+    print(fields)
     verbose_name_list = []
     name_list = []
-    for e in fields_list:
+    for e in fields:
         verbose_name_list.append(e.verbose_name)
         name_list.append(e.name)
     print(verbose_name_list)
     print(name_list)
-
-    context = {'row': row, 'row_lists': row_lists, 'statics': statics}
+    field_names = verbose_name_list
+    context = {'row': row, 'row_lists': row_lists, 'field_names': field_names, 'statics': statics}
     return render(request, 'table.html', context)
