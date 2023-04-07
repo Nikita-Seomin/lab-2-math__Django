@@ -1,17 +1,20 @@
 import datetime
-
 from django import forms
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 # from django.db.models import *
 from django.db.models import Count, Avg, Min, Max, StdDev, Sum
-
 from .forms import CreateAbcForm
 from .models import Abc
 
-
 def index(request):
     return render(request, 'index.html')
+
+def datetime_nov(request):
+    datetime_now = datetime.datetime.now()
+    print(datetime_now)
+    context = {'key': datetime_now}
+    return render(request, 'datetime_now.html', context)
 
 
 def var_list_dict(request):
@@ -23,7 +26,6 @@ def var_list_dict(request):
     print(dict_main)
     context = {"var_main": var_main, 'list_main': list_main, 'dict_main': dict_main}
     return render(request, 'list_dict.html', context)
-
 
 class AbcFormCreate(forms.Form):
     a = forms.IntegerField(initial=1, min_value=2)
@@ -53,18 +55,6 @@ def abc_get(request):
     </pre>
     """)
 
-
-# def index(request):
-#     name_main="index"
-#     redirect_url=reverse ('index', args=(name_main))
-#     return render(request, redirect_url)
-
-
-def datetime_nov(request):
-    datetime_now = datetime.datetime.now()
-    print(datetime_now)
-    context = {'key': datetime_now}
-    return render(request, 'datetime_now.html', context)
 
 
 def form_create_0(request):
@@ -100,41 +90,44 @@ def form_create(request):
 
 
 def form_result(request):
-    object = Abc.objects.all().order_by('-id')[:1]
-    print("object: ", object)
+    object_list = Abc.objects.all().order_by('-id')[:2]
+    print("object_list: ", object_list)
     # dict
-    row = object.values('a', 'b', 'c')[0]
-    print("row: ", row)
-    print("row_a: ", row['a'])
+    print("object_list.values('a', 'b', 'c'):", object_list.values('a', 'b', 'c'))
+    object_0 = object_list.values('a', 'b', 'c')[0]
+    print("object_0: ", object_0)
+    print("object_0_a: ", object_0['a'])
     # list
-    row_list = object.values_list()[0]
-    print("row_list: ", row_list)
-    if row_list[2] + row_list[3] == row_list[4]:
+    values_list = object_list.values_list()[0]
+    print("values_list: ", values_list)
+    if values_list[2] + values_list[3] == values_list[4]:
         result = " С равна сумме A и B"
     else:
         result = "С не равна сумме A и B"
     # context
-    task = row_list[1]
+    task = values_list[1]
     print('task: ', task)
-    last_data = [row_list[2], row_list[3], row_list[4]]
+    last_data = [values_list[2], values_list[3], values_list[4]]
     print('last_data:', last_data)
     print('result: ', result)
 
-    context = {'task': task, 'last_data': last_data, 'result': result, 'row': row}
+    context = {'task': task, 'last_data': last_data, 'result': result, 'object_0': object_0}
     return render(request, 'form_result.html', context)
 
 
 def table(request):
-    row = Abc.objects.values()
-    print('row:', row)
-    row_lists = Abc.objects.values_list()
-    print('row_lists:', row_lists)
+    # objects_list
+    objects_values = Abc.objects.values()
+    print('objects_values:', objects_values)
+    # values_list 
+    objects_values_list = Abc.objects.values_list()
+    print('objects_values_list:', objects_values_list)
     cur_objects = Abc.objects.all()
     statics_val = [cur_objects.aggregate(Count('b')), cur_objects.aggregate(Avg('b')), cur_objects.aggregate(Min('b')),
                    cur_objects.aggregate(Max('b')), cur_objects.aggregate(StdDev('b')), cur_objects.aggregate(Sum('b'))]
     print(statics_val)
     statics = {'statics_val': statics_val}
-
+    # fields_name
     fields = Abc._meta.get_fields()
     print(fields)
     verbose_name_list = []
@@ -145,5 +138,5 @@ def table(request):
     print(verbose_name_list)
     print(name_list)
     field_names = verbose_name_list
-    context = {'row': row, 'row_lists': row_lists, 'field_names': field_names, 'statics': statics}
+    context = {'objects_values': objects_values, 'objects_values_list': objects_values_list,  'statics': statics, 'field_names': field_names}
     return render(request, 'table.html', context)
