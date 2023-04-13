@@ -4,9 +4,9 @@ https://docs.djangoproject.com/en/4.1/ref/models/
 https://docs.djangoproject.com/en/4.1/ref/models/fields/
 '''
 
-
 from django.db import models
 from orm_abc_app.models import Abc
+
 
 new_obj = Abc(task='new_task')
 new_obj.save()

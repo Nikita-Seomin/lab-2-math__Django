@@ -14,7 +14,7 @@
     https://docs.djangoproject.com/en/4.1/ref/models/conditional-expressions/#advanced-queries
     https://docs.djangoproject.com/en/4.1/ref/models/database-functions/
     </pre>
-    <h6>{{ task }}</h6>
+    <h6>{{ task_formulation }}</h6>
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -32,7 +32,7 @@
             <td>{{ result }}</td>
         </tr>
         <tr>
-            {% for key, value in object_0.items %}
+            {% for key, value in last_object.items %}
                 <td>{{ value }}</td>
             {% endfor %}
             <td>{{ result }}</td>

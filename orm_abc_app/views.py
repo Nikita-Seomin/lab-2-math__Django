@@ -94,9 +94,9 @@ def form_result(request):
     print("object_list: ", object_list)
     # dict
     print("object_list.values('a', 'b', 'c'):", object_list.values('a', 'b', 'c'))
-    object_0 = object_list.values('a', 'b', 'c')[0]
-    print("object_0: ", object_0)
-    print("object_0_a: ", object_0['a'])
+    last_object = object_list.values('a', 'b', 'c')[0]
+    print("last_object: ", last_object)
+    print("object_0_a: ", last_object['a'])
     # list
     values_list = object_list.values_list()[0]
     print("values_list: ", values_list)
@@ -105,13 +105,13 @@ def form_result(request):
     else:
         result = "С не равна сумме A и B"
     # context
-    task = values_list[1]
-    print('task: ', task)
+    task_formulation = values_list[1]
+    print('task_content: ', task_formulation)
     last_data = [values_list[2], values_list[3], values_list[4]]
     print('last_data:', last_data)
     print('result: ', result)
 
-    context = {'task': task, 'last_data': last_data, 'result': result, 'object_0': object_0}
+    context = {'task_content': task_formulation, 'last_data': last_data, 'result': result, 'last_object': last_object}
     return render(request, 'form_result.html', context)
 
 
