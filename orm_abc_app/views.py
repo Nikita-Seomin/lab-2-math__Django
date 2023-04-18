@@ -2,7 +2,6 @@ import datetime
 from django import forms
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-# from django.db.models import *
 from django.db.models import Count, Avg, Min, Max, StdDev, Sum
 from .forms import CreateAbcForm
 from .models import Abc
