@@ -109,7 +109,7 @@ def abc_result(request):
     last_data = [values_list[2], values_list[3], values_list[4]]
     print('last_data:', last_data)
     print('result: ', result)
-    context = {'task_content': task_formulation, 'last_data': last_data, 'result': result, 'last_object': last_object}
+    context = {'task_formulation': task_formulation, 'last_data': last_data, 'result': result, 'last_object': last_object}
     return render(request, 'abc_result.html', context)
 
 
