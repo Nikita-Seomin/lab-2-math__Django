@@ -63,7 +63,7 @@ def form_create_0(request):
         if form.is_valid():
             print("\nform_is_valid:\n", form)
             form.save()
-            return redirect('orm_abc_app:form_result')
+            return redirect('orm_abc_app:abc_result')
     else:
         form = CreateAbcForm()
         print('\nform_else:\n', form)
@@ -79,7 +79,7 @@ def form_create(request):
         if form.is_valid():
             print("\nform_is_valid:\n", form)
             form.save()
-            return redirect('orm_abc_app:form_result')
+            return redirect('orm_abc_app:abc_result')
     else:
         form = CreateAbcForm()
         print('\nform_else:\n', form)
@@ -88,7 +88,7 @@ def form_create(request):
     return render(request, 'form_create.html', context)
 
 
-def form_result(request):
+def abc_result(request):
     object_list = Abc.objects.all().order_by('-id')[:2]
     print("object_list: ", object_list)
     # dict
@@ -109,9 +109,8 @@ def form_result(request):
     last_data = [values_list[2], values_list[3], values_list[4]]
     print('last_data:', last_data)
     print('result: ', result)
-
     context = {'task_content': task_formulation, 'last_data': last_data, 'result': result, 'last_object': last_object}
-    return render(request, 'form_result.html', context)
+    return render(request, 'abc_result.html', context)
 
 
 def table(request):
