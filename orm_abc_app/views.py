@@ -19,7 +19,7 @@ def datetime_nov(request):
 def var_list_dict(request):
     var_main = 2
     print(var_main)
-    list_main = (1, 2, 3, 4, 5)
+    list_main = [1, 2, 3, 4, 5]
     print(list_main)
     dict_main = {'x': 1, 'y': 2}
     print(dict_main)
