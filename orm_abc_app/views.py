@@ -116,25 +116,25 @@ def abc_result(request):
 def table(request):
     # objects_list
     objects_values = Abc.objects.values()
-    print('objects_values:', objects_values)
+    print('\nobjects_values:', objects_values)
     # values_list 
     objects_values_list = Abc.objects.values_list()
-    print('objects_values_list:', objects_values_list)
+    print('\nobjects_values_list:', objects_values_list)
     cur_objects = Abc.objects.all()
     statics_val = [cur_objects.aggregate(Count('b')), cur_objects.aggregate(Avg('b')), cur_objects.aggregate(Min('b')),
                    cur_objects.aggregate(Max('b')), cur_objects.aggregate(StdDev('b')), cur_objects.aggregate(Sum('b'))]
-    print(statics_val)
+    print('\nstatics_val:', statics_val)
     statics = {'statics_val': statics_val}
     # fields_name
     fields = Abc._meta.get_fields()
-    print(fields)
+    print('\nfields', fields)
     verbose_name_list = []
     name_list = []
     for e in fields:
         verbose_name_list.append(e.verbose_name)
         name_list.append(e.name)
-    print(verbose_name_list)
-    print(name_list)
+    print('\nverbose_name_list:', verbose_name_list)
+    print('\nname_list', name_list)
     field_names = verbose_name_list
     context = {'objects_values': objects_values, 'objects_values_list': objects_values_list,  'statics': statics, 'field_names': field_names}
     return render(request, 'table.html', context)
