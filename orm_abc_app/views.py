@@ -128,8 +128,8 @@ def table(request):
     objects_values_list = Abc.objects.values_list()
     print('\nobjects_values_list:', objects_values_list)
     cur_objects = Abc.objects.all()
-    statics_val = [cur_objects.aggregate(Count('y')), cur_objects.aggregate(Avg('y')), cur_objects.aggregate(Min('b')),
-                   cur_objects.aggregate(Max('y')), cur_objects.aggregate(StdDev('y')), cur_objects.aggregate(Sum('b'))]
+    statics_val = [cur_objects.aggregate(Count('y')), cur_objects.aggregate(Avg('y')), cur_objects.aggregate(Min('y')),
+                   cur_objects.aggregate(Max('y')), cur_objects.aggregate(StdDev('y')), cur_objects.aggregate(Sum('y'))]
     print('\nstatics_val:', statics_val)
     statics = {'statics_val': statics_val}
     # fields_name
