@@ -8,9 +8,9 @@
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th scope="col">A</th>
-            <th scope="col">B</th>
-            <th scope="col">C</th>
+            <th scope="col">X</th>
+            <th scope="col">Y</th>
+            <th scope="col">Z</th>
             <th scope="col">Результат</th>
         </tr>
         </thead>
@@ -21,12 +21,12 @@
             {% endfor %}
             <td>{{ result }}</td>
         </tr>
-        <tr>
-            {% for key, value in last_object.items %}
-                <td>{{ value }}</td>
-            {% endfor %}
-            <td>{{ result }}</td>
-        </tr>
+{#        <tr>#}
+{#            {% for key, value in last_object.items %}#}
+{#                <td>{{ value }}</td>#}
+{#            {% endfor %}#}
+{#            <td>{{ result }}</td>#}
+{#        </tr>#}
         </tbody>
     </table>
 {% endblock %}

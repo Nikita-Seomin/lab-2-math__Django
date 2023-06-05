@@ -10,10 +10,10 @@ c_choices = (
 
 
 class Abc(models.Model):
-    task = models.CharField(verbose_name="Формулировка  задачи", default="Равна ли С сумме A и B ?", max_length=255)
-    a = models.IntegerField(verbose_name="Значение А", default=0, )
-    b = models.IntegerField(verbose_name="Значение B", default=0, help_text="Подсказка для поля B")
-    c = models.IntegerField(verbose_name="Значение С", choices=c_choices, default=0, )
+    task = models.CharField(verbose_name="Формулировка  задачи", default="1/(XY) равно ?", max_length=255)
+    x = models.IntegerField(verbose_name="Значение X", default=0, )
+    y = models.IntegerField(verbose_name="Значение Y", default=0, help_text="Подсказка для поля Y")
+    z = models.IntegerField(verbose_name="Значение Z", choices=c_choices, default=0, )
     current_date = models.DateTimeField(verbose_name="Дата изменения(save)", auto_now=True)
 
     def __str__(self):
@@ -23,9 +23,9 @@ class Abc(models.Model):
 
 
     class Meta:
-        verbose_name = "A_B_C"
-        verbose_name_plural = "A_B_C_S"
-        ordering = ('-id', '-a')
+        verbose_name = "Z_Y_Z"
+        verbose_name_plural = "X_Y_Z_S"
+        ordering = ('-id', '-x')
 
 
 

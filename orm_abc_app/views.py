@@ -40,17 +40,17 @@ def abc_form(request):
 
 def abc_get(request):
     print(request.GET)
-    print(request.GET.get("a"))
-    print(request.GET.get("b"))
-    print(request.GET.get("c"))
-    A = request.GET.get("a")
-    B = request.GET.get("b")
-    C = request.GET.get("c")
+    print(request.GET.get("x"))
+    print(request.GET.get("y"))
+    print(request.GET.get("z"))
+    X = request.GET.get("x")
+    Y = request.GET.get("y")
+    Z = request.GET.get("z")
     return HttpResponse(f"""
     <pre>
-    A = {A}
-    B = {B}
-    C = {C}
+    X = {X}
+    Y = {Y}
+    Z = {Z}
     </pre>
     """)
 
@@ -90,25 +90,32 @@ def form_create(request):
 
 def abc_result(request):
     object_list = Abc.objects.all().order_by('-id')[:2]
-    print("object_list: ", object_list)
+    # print("object_list: ", object_list)
     # dict
-    print("object_list.values('a', 'b', 'c'):", object_list.values('a', 'b', 'c'))
-    last_object = object_list.values('a', 'b', 'c')[0]
-    print("last_object: ", last_object)
-    print("object_0_a: ", last_object['a'])
+    # print("object_list.values('x', 'y', 'z'):", object_list.values('x', 'y', 'z'))
+    last_object = object_list.values('x', 'y', 'z')[0]
+    # print("last_object: ", last_object)
+    # print("object_0_a: ", last_object['x'])
     # list
     values_list = object_list.values_list()[0]
-    print("values_list: ", values_list)
-    if values_list[2] + values_list[3] == values_list[4]:
-        result = " С равна сумме A и B"
-    else:
-        result = "С не равна сумме A и B"
+    # print("values_list: ", values_list)
+    # if values_list[2] + values_list[3] == values_list[4]:
+    #     result = "1/(XY) равно"
+    # else:
+    #     result = "1/(XY) равно"
     # context
     task_formulation = values_list[1]
-    print('task_content: ', task_formulation)
+    # print('task_content: ', task_formulation)
     last_data = [values_list[2], values_list[3], values_list[4]]
-    print('last_data:', last_data)
-    print('result: ', result)
+    # print('last_data:', last_data)
+    # print('result: ', result)
+    # print(last_object['x'])
+
+    if last_object['x'] != 0 and last_object['y'] != 0:
+        result = str(1 / (last_object['x'] * last_object['y']))
+    else:
+        result = "Результат не определен"
+
     context = {'task_formulation': task_formulation, 'last_data': last_data, 'result': result, 'last_object': last_object}
     return render(request, 'abc_result.html', context)
 
@@ -121,8 +128,8 @@ def table(request):
     objects_values_list = Abc.objects.values_list()
     print('\nobjects_values_list:', objects_values_list)
     cur_objects = Abc.objects.all()
-    statics_val = [cur_objects.aggregate(Count('b')), cur_objects.aggregate(Avg('b')), cur_objects.aggregate(Min('b')),
-                   cur_objects.aggregate(Max('b')), cur_objects.aggregate(StdDev('b')), cur_objects.aggregate(Sum('b'))]
+    statics_val = [cur_objects.aggregate(Count('y')), cur_objects.aggregate(Avg('y')), cur_objects.aggregate(Min('b')),
+                   cur_objects.aggregate(Max('y')), cur_objects.aggregate(StdDev('y')), cur_objects.aggregate(Sum('b'))]
     print('\nstatics_val:', statics_val)
     statics = {'statics_val': statics_val}
     # fields_name

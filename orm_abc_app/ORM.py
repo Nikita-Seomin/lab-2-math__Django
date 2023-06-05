@@ -19,7 +19,7 @@ Abc.objects.all().order_by('id').reverse()
 Abc.objects.values('task', 'current_date').order_by('-id')
 Abc.objects.values().filter(id__gte=27).order_by('-id')[0:1][0]['task']
 Abc.objects.all().order_by('-id')[:1][0]
-Abc.objects.values('id')[2:3]
+var = Abc.objects.values('id')[2:3]
 Abc.objects.values()[2:4][0]['id']
 
 Abc.objects.all()[2:4]
@@ -67,14 +67,14 @@ cur_objects = Abc.objects.filter(id__gte=17) & Abc.objects.filter(c__gte=15)
 
 from django.db.models import Q
 Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15))
-Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15)).values() - - все поля
+Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15)).values() #- - все поля
 Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15)).values().first()
 
 cur_objects.count()
 cur_objects.earliest("current_date")
 cur_objects.values().earliest("current_date")
 
-Агрегируем
+# Агрегируем
 from django.db.models import *
 cur_objects = Abc.objects.all()
 cur_objects.values('id')
@@ -100,7 +100,7 @@ r.all()
 r.annotate(Count('c'))
 r.annotate(Sum('c'))
 
-функции
+# функции
 obj = Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15)).values('task').first()
 obj = Abc.objects.filter(Q(id__gte=17) & Q(c__gte=15)).values().first()
 obj['task'].__len__()
