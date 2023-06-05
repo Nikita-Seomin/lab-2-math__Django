@@ -11,9 +11,9 @@ c_choices = (
 
 class Abc(models.Model):
     task = models.CharField(verbose_name="Формулировка  задачи", default="1/(XY) равно ?", max_length=255)
-    x = models.IntegerField(verbose_name="Значение X", default=0, )
+    x = models.IntegerField(verbose_name="Значение X", default=0 )
     y = models.IntegerField(verbose_name="Значение Y", default=0, help_text="Подсказка для поля Y")
-    z = models.IntegerField(verbose_name="Значение Z", choices=c_choices, default=0, )
+    # z = models.IntegerField(verbose_name="Значение Z", choices=c_choices, default=0 )
     current_date = models.DateTimeField(verbose_name="Дата изменения(save)", auto_now=True)
 
     def __str__(self):

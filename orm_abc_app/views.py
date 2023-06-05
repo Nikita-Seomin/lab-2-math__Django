@@ -93,7 +93,7 @@ def abc_result(request):
     # print("object_list: ", object_list)
     # dict
     # print("object_list.values('x', 'y', 'z'):", object_list.values('x', 'y', 'z'))
-    last_object = object_list.values('x', 'y', 'z')[0]
+    last_object = object_list.values('x', 'y')[0]
     # print("last_object: ", last_object)
     # print("object_0_a: ", last_object['x'])
     # list
@@ -106,7 +106,7 @@ def abc_result(request):
     # context
     task_formulation = values_list[1]
     # print('task_content: ', task_formulation)
-    last_data = [values_list[2], values_list[3], values_list[4]]
+    last_data = [values_list[2], values_list[3]]
     # print('last_data:', last_data)
     # print('result: ', result)
     # print(last_object['x'])
